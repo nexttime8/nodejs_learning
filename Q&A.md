@@ -63,6 +63,7 @@
 46. vscode 里面多种不同的终端
 47. 什么时候用 try-catch，为什么在 try 里面写 fs.writeFileSync 方法
 48. 写入、读取、重命名、删除等的异步方法中的回调函数的参数？fs.rename 的回调函数的参数？
+49. 为什么 vue2 无法监听数组的下标改变、数组的长度改变等操作
 
 ## 1.数组方法是否更改原数组+是否生成新数组
 
@@ -814,3 +815,15 @@ writeFileSafely("example.txt", "Hello, World!")
 1. `err`：如果操作失败，则 err 参数会包含一个 Error 对象，否则为 null 或 undefined。
 
 注意：在最新版本的 Node.js 中，fs.rename 方法已经支持使用 Promise，可以使用 async/await 或者 .then() 方法处理重命名操作，而不一定非要使用回调函数。
+
+## 49.vue 为什么不能监听数组变化？为什么 vue2 无法监听数组的下标改变、数组的长度改变等操作（侧面问 vue2 和 vue3 对比，侧面看你是否了解 vue2 源码
+
+在 Vue 2.x 中，Vue 使用了 `Object.defineProperty` 来实现对数据的响应式。`Object.defineProperty` 可以劫持对象的属性，当属性发生变化时，会触发相应的响应式更新。
+
+然而，`Object.defineProperty` 有一个限制，它只能劫持对象的属性，而不能劫持数组的索引。因此，当我们直接通过索引改变数组的值或修改数组的长度时，`Object.defineProperty` 无法捕捉到这种变化，导致 Vue 2.x 无法直接监听数组的下标改变和数组长度改变。
+
+举个例子，假设有一个数组 `arr`，我们通过 `arr[0] = newValue` 来改变数组的第一个元素，或者使用 `arr.push(newValue)` 来向数组末尾添加一个元素，Vue 2.x 是无法直接捕捉这些变化的，因此视图不会更新。
+
+为了解决这个问题，Vue 2.x 引入了一组特殊的数组方法，如 `push()`、`pop()`、`shift()`、`unshift()`、`splice()`、`sort()` 和 `reverse()` 等。当我们使用这些特殊的数组方法来修改数组时，Vue 2.x 可以监听到数组的变化并触发视图更新。这是因为这些特殊的数组方法在内部进行了处理，能够被 Vue 2.x 监听到。
+
+如果想要在 Vue 2.x 中监听数组的索引变化或数组长度变化，需要使用 `$set` 方法来手动触发数组的监听。例如，可以使用 `Vue.set(array, index, value)` 或 `this.$set(array, index, value)` 来更新数组的值，并触发响应式更新。
