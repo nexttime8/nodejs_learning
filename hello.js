@@ -91,7 +91,7 @@ rs.on("end", () => {
 // #endregion
 
 /* 文件删除 */
-// 【复制文件】
+/* 【复制文件】 */
 /* let rs = fs.createReadStream("./todo_copy.txt")
 let ws = fs.createWriteStream("./copy.txt")
 rs.on("data", (data) => {
@@ -100,7 +100,7 @@ rs.on("data", (data) => {
 rs.on("end", () => {
   console.log("文件复制完毕")
 }) */
-// 删除文件
+/* 删除文件 */
 /* fs.unlink("./copy.txt", (err) => {
   if (err) throw err
   console.log("删除成功")
@@ -110,19 +110,22 @@ rs.on("end", () => {
 /* fs.writeFileSync("C:/test.txt", "没权限") //Error: EPERM: operation not permitted */
 
 /* 批量重命名 */
-// 创建文件夹
+// #region
+/* 创建文件夹-原本就存在会throw Error: EEXIST: file already exists */
 /* fs.mkdir(__dirname + "/code", (err, data) => {
   if (err) throw err
   console.log("code文件夹创建成功")
 }) */
-// 创建多个文件
+
+/* 创建多个文件 */
 /* for (let i = 1; i <= 10; i++) {
   fs.writeFile(__dirname + `/code/${i}-随便${i}.js`, `随便写点${i}`, (err) => {
     if (err) throw err
     console.log(`${i}文件创建成功`)
   })
 } */
-/* 批量修改文件名 */
+
+/* 批量修改文件名-一步步输出实现 */
 /* fs.readdir(__dirname + "/code", (err, data) => {
   if (err) throw err
   // console.log(data)
@@ -136,7 +139,7 @@ rs.on("end", () => {
     // console.log(num, name)
     fs.rename(
       __dirname + "/code/" + item,
-      __dirname + "/code/" + num + name,
+      __dirname + "/code/" + num + "-" + name,
       (err) => {
         if (err) throw err
       }
@@ -145,3 +148,28 @@ rs.on("end", () => {
 }) */
 
 /* 批量调整-删掉 02 文件，后面的文件名前移 */
+/* fs.readdir(__dirname + "/code", (err, data) => {
+  if (err) throw err
+  data.forEach((item) => {
+    let [num, name] = item.split("-")
+    // console.log(num, name)
+    if (Number(num) > 2 && Number(num) < 11) {
+      num = "0" + (Number(num) - 1) // 后面加括号，进行数值运算
+      console.log(num)
+    }
+    if (Number(num) >= 11) {
+      num = Number(num) - 1 + "" // 这里是先进行数值运算，不需要括号
+    }
+    fs.renameSync(
+      __dirname + "/code/" + item,
+      __dirname + "/code/" + num + "-" + name
+    )
+  })
+}) */
+
+/* 删除文件夹 */
+/* fs.rmdir(__dirname + "/code", { recursive: true }, (err) => {
+  if (err) throw err
+}) */
+// #endregion
+
