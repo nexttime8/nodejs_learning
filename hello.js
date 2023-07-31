@@ -1,0 +1,107 @@
+/* nodejs API */
+// console.log("hello nodejs!")
+
+/* buffer */
+// #region
+/* const { Buffer } = require("buffer")
+let buf_1 = Buffer.alloc(10)
+console.log(buf_1)
+
+let buf_2 = Buffer.allocUnsafe(10)
+console.log(buf_2)
+
+let buf_3 = Buffer.from("hello")
+console.log(buf_3)
+console.log(buf_3[0]) // 10进制数字
+console.log(buf_3[0].toString()) // 10进制字符串
+console.log(buf_3[0].toString(2)) // 2进制字符串
+
+buf_3[0] = 93
+console.log(buf_3) */
+// #endregion
+
+/* 写入文件 */
+const fs = require("fs")
+// #region
+/* 异步写入文件 */
+/* fs.writeFile(
+  "./app.txt", // 自动创建文件
+  "今天是2023年7月31日，我学完vue了，目标半个月做出博客基本功能",
+  (err) => {
+    // 传入err或者null
+    if (err) {
+      console.log(err) // 或者throw err
+      return
+    }
+    console.log("写入成功")
+  }
+) */
+
+/* 同步追加文件 */
+/* try {
+  fs.appendFileSync(
+    "./app.txt",
+    "\n4天学完nodejs；一定要每天跟上字节跳动的课程，最好是把react学完"
+  )
+  console.log("追加成功")
+} catch (err) {
+  console.log(err)
+} */
+
+/* 流式写入文件 */
+/* let ws = fs.createWriteStream("./stream.txt")
+ws.write("半亩方塘一鉴开\r\n")
+ws.write("天光云影共徘徊\r\n")
+ws.write("问渠那得清如许\r\n")
+ws.write("为有源头活水来\r\n")
+ws.end()
+ws.close() */
+// #endregion
+
+/* 读取文件 */
+// #region
+/* 异步读取 */
+/* fs.readFile("./app.txt", (err, data) => {
+  if (err) throw err
+  console.log("异步读取的数据", data.toString())
+}) */
+/* 同步读取 */
+/* let sync_data = fs.readFileSync("./app.txt", "utf-8")
+console.log("同步读取的数据", sync_data) */
+/* 流式读取 */
+/* let rs = fs.createReadStream("./stream.txt")
+rs.on("data", (data) => {
+  console.log("流式读取的数据", data.toString())
+  console.log(data.length)
+})
+rs.on("end", () => {
+  console.log("读取完毕")
+}) */
+// #endregion
+/* 文件读取顺序：同步-》流式-》异步 */
+
+/* 文件移动和重命名 */
+// #region
+/* fs.rename("./app.txt", "./todo.txt", (err) => {
+  if (err) throw err
+  console.log("文件名已修改")
+}) */
+// renameSync本质是重命名，从头到尾只有一个文件
+// fs.renameSync("./todo.txt", "./todo_copy.txt")
+// #endregion
+
+/* 文件删除 */
+// 【复制文件】
+/* let rs = fs.createReadStream("./todo_copy.txt")
+let ws = fs.createWriteStream("./copy.txt")
+rs.on("data", (data) => {
+  ws.write(data)
+})
+rs.on("end", () => {
+  console.log("文件复制完毕")
+}) */
+// 删除文件
+/* fs.unlink("./copy.txt", (err) => {
+  if (err) throw err
+  console.log("删除成功")
+}) */
