@@ -62,6 +62,7 @@
 45. commonJS 和 ESmodule？nodejs 中用 require 导入还是用 ES6+的模块导入方式？
 46. vscode 里面多种不同的终端
 47. 什么时候用 try-catch，为什么在 try 里面写 fs.writeFileSync 方法
+48. 写入、读取、重命名、删除等的异步方法中的回调函数的参数？fs.rename 的回调函数的参数？
 
 ## 1.数组方法是否更改原数组+是否生成新数组
 
@@ -806,3 +807,10 @@ writeFileSafely("example.txt", "Hello, World!")
 
 在上述例子中，如果写入文件成功，控制台会输出 `'文件写入成功！'`；如果写入文件失败，控制台会输出错误信息，并且程序不会崩溃。使用 `try-catch` 可以有效地处理文件写入过程中可能出现的异常。
 
+## 48.写入、读取、重命名、删除等的异步方法中的回调函数的参数？fs.rename 的回调函数的参数？
+
+在 Node.js 的 fs 模块中，fs.rename 方法用于重命名文件或移动文件。它的回调函数在操作完成后被调用，回调函数的参数如下：
+
+1. `err`：如果操作失败，则 err 参数会包含一个 Error 对象，否则为 null 或 undefined。
+
+注意：在最新版本的 Node.js 中，fs.rename 方法已经支持使用 Promise，可以使用 async/await 或者 .then() 方法处理重命名操作，而不一定非要使用回调函数。

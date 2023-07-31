@@ -105,3 +105,43 @@ rs.on("end", () => {
   if (err) throw err
   console.log("删除成功")
 }) */
+
+/* 路径问题 */
+/* fs.writeFileSync("C:/test.txt", "没权限") //Error: EPERM: operation not permitted */
+
+/* 批量重命名 */
+// 创建文件夹
+/* fs.mkdir(__dirname + "/code", (err, data) => {
+  if (err) throw err
+  console.log("code文件夹创建成功")
+}) */
+// 创建多个文件
+/* for (let i = 1; i <= 10; i++) {
+  fs.writeFile(__dirname + `/code/${i}-随便${i}.js`, `随便写点${i}`, (err) => {
+    if (err) throw err
+    console.log(`${i}文件创建成功`)
+  })
+} */
+/* 批量修改文件名 */
+/* fs.readdir(__dirname + "/code", (err, data) => {
+  if (err) throw err
+  // console.log(data)
+  data.forEach((item) => {
+    // console.log(item)
+    let [num, name] = item.split("-")
+    // console.log(num, name)
+    if (Number(num) < 10) {
+      num = "0" + num
+    }
+    // console.log(num, name)
+    fs.rename(
+      __dirname + "/code/" + item,
+      __dirname + "/code/" + num + name,
+      (err) => {
+        if (err) throw err
+      }
+    )
+  })
+}) */
+
+/* 批量调整-删掉 02 文件，后面的文件名前移 */
