@@ -173,3 +173,14 @@ rs.on("end", () => {
 }) */
 // #endregion
 
+/* 创建http服务 */
+const http = require("http")
+const server = http.createServer((request, response) => {
+  response.setHeader("content-type", "text/html;charset=utf-8")
+  response.end("你好 http server") // 设置响应体
+})
+// 3.0 监听端口，启动服务
+server.listen(9000, () => {
+  console.log("服务启动了")
+})
+// 本机的ip地址 127.0.0.1:9000
