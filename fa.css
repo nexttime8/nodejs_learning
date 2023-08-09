@@ -1,0 +1,20 @@
+table {
+  border-spacing: 0;
+}
+
+table td {
+  cursor: pointer;
+  width: 120px;
+  height: 120px;
+  text-align: center;
+}
+
+table tr:nth-child(2n) {
+  /* 或者even */
+  background-color: #dcebba;
+}
+
+table tr:nth-child(2n + 1) {
+  /* 或者odd */
+  background-color: #bad7eb;
+}
